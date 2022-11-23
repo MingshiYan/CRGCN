@@ -58,7 +58,7 @@ if __name__ == '__main__':
     if args.data_name == 'tmall':
         args.data_path = './data/Tmall'
         args.behaviors = ['click', 'collect', 'cart', 'buy']
-        args.layers = [2, 1, 1, 1]
+        args.layers = [1, 1, 1, 1]
         args.model_name = 'Tmall'
     elif args.data_name == 'tmall_cold':
         args.data_path = 'data/Tmall_cold_all'
