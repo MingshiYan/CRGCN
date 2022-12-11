@@ -38,7 +38,7 @@ if __name__ == '__main__':
     parser.add_argument('--node_dropout', type=float, default=0.75)
     parser.add_argument('--message_dropout', type=float, default=0.25)
 
-    parser.add_argument('--data_name', type=str, default='tmall', help='')
+    parser.add_argument('--data_name', type=str, default='jdata', help='')
     parser.add_argument('--behaviors', help='', action='append')
     parser.add_argument('--if_load_model', type=bool, default=False, help='')
 
@@ -53,6 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_path', type=str, default='./check_point', help='')
     parser.add_argument('--check_point', type=str, default='', help='')
     parser.add_argument('--model_name', type=str, default='', help='')
+    parser.add_argument('--device', type=str, default='cpu', help='')
 
     args = parser.parse_args()
     if args.data_name == 'tmall':
@@ -67,12 +68,20 @@ if __name__ == '__main__':
     elif args.data_name == 'beibei':
         args.data_path = './data/beibei'
         args.behaviors = ['view', 'cart', 'buy']
+        args.layers = [1, 1, 1]
         args.model_name = 'beibei'
+    elif args.data_name == 'beibei_cold':
+        args.data_path = './data/beibei_cold_all'
+        args.behaviors = ['view', 'cart', 'buy']
+        args.layers = [1, 1, 1]
+        args.model_name = 'beibei'
+    elif args.data_name == 'jdata':
+        args.data_path = './data/jdata'
+        args.behaviors = ['view', 'collect', 'cart', 'buy']
+        args.layers = [1, 1, 1, 1]
+        args.model_name = 'jdata'
     else:
         raise Exception('data_name cannot be None')
-
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    args.device = device
 
     TIME = time.strftime("%Y-%m-%d %H_%M_%S", time.localtime())
     args.TIME = TIME
